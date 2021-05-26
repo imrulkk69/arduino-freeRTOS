@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "arduino:arduinoisp",
+    "port": "COM6",
+    "sketch": "Sending_Structure_to_Queue.ino"
+}
