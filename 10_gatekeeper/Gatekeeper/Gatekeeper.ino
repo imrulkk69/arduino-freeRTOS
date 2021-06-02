@@ -16,21 +16,34 @@ void setup()
 
   xPrintQueue = xQueueCreate(5, sizeof(char *));
 
-  xTaskCreate(vOutputTask, "Printer 1", 100, (void *)0, 1, NULL);
-  xTaskCreate(vOutputTask, "Printer 2", 100, (void *)1, 1, NULL);
+  xTaskCreate(vOutputTask1, "Printer 1", 100, NULL, 1, NULL);
+  xTaskCreate(vOutputTask2, "Printer 2", 100, NULL, 1, NULL);
 
   xTaskCreate(vGateKeeperTask, "Gatekeeper", 100, NULL, 1, NULL);
 }
 
 void loop() {}
 
-void vOutputTask(void *pvParameters)
+void vOutputTask1(void *pvParameters)
 {
   uint8_t indexToString = (uint8_t)pvParameters;
-
+  char *taskMessage;
   while (true)
   {
-    xQueueSend(xPrintQueue, &(pcStringToPrint[indexToString]), 0);
+    strcpy(taskMessage, "HELLO WORLD");
+    xQueueSend(xPrintQueue, &taskMessage, 0);
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}
+
+void vOutputTask2(void *pvParameters)
+{
+  uint8_t indexToString = (uint8_t)pvParameters;
+  char *taskMessage;
+  while (true)
+  {
+    strcpy(taskMessage, "IS Everything OK!");
+    xQueueSend(xPrintQueue, &taskMessage, 0);
     vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
