@@ -1,2 +1,11 @@
 .vscode
+__vm
+.vs
+*.atsln
+*.xml
+*.cppproj
+Debug
+Release
+
+
 
